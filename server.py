@@ -94,7 +94,8 @@ class Serve(http.server.BaseHTTPRequestHandler):
         self.wfile.write( str.encode( dumps(jsonResponse) ) )
 
 if __name__ == '__main__':
-    address = ('0.0.0.0', 8083) # change to your machine IP and desired available port
+    from os import environ
+    address = ('0.0.0.0', int(environ.get('PORT', 8083))) # change to your machine IP and desired available port
     httpd = http.server.HTTPServer(address, Serve)
     print('Listening at http://%s' % ':'.join([ str(x) for x in address ]))
     httpd.serve_forever()
